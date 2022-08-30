@@ -1,15 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const compareText = (a: any, b: any) => {
-  const name1 = a['name'].toUpperCase();
-  const name2 = b['name'].toUpperCase();
+export const flatten = (obj: any) => {
+  const root = {};
 
-  let comparison = 0;
+  (function tree(obj, index) {
+    const suffix = toString.call(obj) === '[object Array]' ? ']' : '';
 
-  if (name1 > name2) {
-    comparison = 1;
-  } else if (name1 < name2) {
-    comparison = -1;
-  }
+    for (const key in obj) {
+      if (!obj.hasOwnProperty(key)) {
+        continue;
+      }
+      root[index + key + suffix] = obj[key];
+      if (toString.call(obj[key]) === '[object Array]') {
+        tree(obj[key], index + key + suffix + '[');
+      }
+      if (toString.call(obj[key]) === '[object Object]') {
+        tree(obj[key], index + key + suffix + '.');
+      }
+    }
+  })(obj, '');
 
-  return comparison;
+  return root;
 };

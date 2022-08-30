@@ -1,5 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { compareText } from '../utils/arrayUtils';
+import React, { Dispatch, SetStateAction } from 'react';
 
 interface SearchBarProps<T> {
   search?: { items: Array<T> | undefined; setItems: Dispatch<SetStateAction<Array<T> | undefined>> };
@@ -11,9 +10,7 @@ interface SearchBarProps<T> {
 }
 
 function SearchBar<T>(props: SearchBarProps<T>) {
-  const { buttonLabel = 'Search', placeholderText = 'Search', onChange, search, originalData, isSorting } = props;
-  const [sorted, setSorted] = useState(false);
-  const [unSorted, setUnSorted] = useState(originalData);
+  const { buttonLabel = 'Search', placeholderText = 'Search', onChange, search, originalData } = props;
 
   const handleChange = (e: { target: { value: string } }) => {
     handleSearch(e.target.value);
@@ -34,8 +31,6 @@ function SearchBar<T>(props: SearchBarProps<T>) {
                 const itemKey = explodeWithTwoPoint[0].substring(1);
                 const itemValue = explodeWithTwoPoint[1];
 
-                //eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                //@ts-ignore
                 return __item[itemKey]?.toLowerCase() === itemValue.toLowerCase();
               })
             );
@@ -57,16 +52,6 @@ function SearchBar<T>(props: SearchBarProps<T>) {
     );
   };
 
-  useEffect(() => {
-    sorted
-      ? search?.setItems((prev) => {
-          setUnSorted(prev);
-
-          return [...(prev || [])]?.sort(compareText);
-        })
-      : search?.setItems(unSorted);
-  }, [sorted]);
-
   return (
     <div className={'flex justify-center'}>
       <div className={'mb-3 w-full'}>
@@ -81,17 +66,6 @@ function SearchBar<T>(props: SearchBarProps<T>) {
             aria-label={buttonLabel}
             aria-describedby="button-addon3"
           />
-          {isSorting && (
-            <button
-              onClick={() => setSorted(!sorted)}
-              className={`btn inline-block ml-2 px-6 py-2 text-slate-300 font-medium text-xs leading-tight uppercase rounded hover:bg-slate-300 hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out ${
-                sorted && 'bg-opacity-5 bg-slate-300'
-              }`}
-              type="button"
-            >
-              Sort by Name
-            </button>
-          )}
         </div>
       </div>
     </div>
