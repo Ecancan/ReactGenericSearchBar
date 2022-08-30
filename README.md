@@ -1,7 +1,6 @@
 # React Generic Search Bar
 
-This module is customizable react native appointment component. Main purpose of this module is taking appointment
-information from user.
+This module is generic search bar component. Main purpose of this module is filter with just typing custom properties your item data.
 
 ## Demo 
 
