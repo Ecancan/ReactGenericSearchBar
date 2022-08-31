@@ -55,14 +55,19 @@
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
-    "styled-components": "^5.3.5",
     "typescript": "4.7.4"
   },
   "peerDependencies": {
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "styled-components": "*"
   },
-  "dependencies": {},
+  "dependencies": {
+    "styled-components": "^5.3.5"
+  },
+  "resolutions": {
+    "styled-components": "^5"
+  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
       "node_modules/.bin/prettier --write"
