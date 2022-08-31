@@ -41,9 +41,74 @@ const Template: ComponentStory<typeof SearchBar> = (args) => {
   return (
     <>
       <SearchBar<Character> {...args} search={{ items, setItems }} originalData={characters}/>
-      {items?.map((item)=> {
-        return <div>{item.name}</div>
-      })}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginLeft: -5,
+        marginRight: -5,
+        marginTop: 30
+      }}>
+        {items?.map((item)=> {
+          return (
+            <div style={{
+              width: '10%',
+              display: 'flex',
+              padding:15,
+              flexDirection: 'column',
+              marginBottom:30,
+              backgroundColor: '#dfdfdf',
+              marginLeft: 5,
+              marginRight: 5,
+              borderRadius: 6
+            }}>
+              <div style={{marginBottom:10}}>
+                <img src={item.image} alt={item.name} style={{width: '100%', borderRadius: 6}}/>
+              </div>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom:5}}>
+                <span>
+                  ID:
+                </span>
+                <span>
+                  {item.id}
+                </span>
+              </div>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom:5}}>
+                <span>
+                  Name:
+                </span>
+                <span>
+                  {item.name}
+                </span>
+              </div>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom:5}}>
+                <span>
+                  Gender:
+                </span>
+                <span>
+                  {item.gender}
+                </span>
+              </div>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom:5}}>
+                <span>
+                  Species:
+                </span>
+                <span>
+                  {item.species}
+                </span>
+              </div>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom:5}}>
+                <span>
+                  Status:
+                </span>
+                <span>
+                  {item.status}
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };

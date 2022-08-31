@@ -1,42 +1,57 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
+import { DEFAULT_CONSTANTS } from '../constants/constants';
+import { SEARCH_SEPARATORS } from '../constants/seperatorConstants';
+import { SearchBarContainer, SearchBarTextInput } from './searchBarStyle';
 
-interface SearchBarProps<T> {
+export interface SearchBarStyleProps {
+  containerStyle?: CSSProperties;
+  searchInputStyle?: CSSProperties;
+}
+
+export interface SearchBarProps<T> {
   search?: { items: Array<T> | undefined; setItems: Dispatch<SetStateAction<Array<T> | undefined>> };
   buttonLabel?: string;
   placeholderText?: string;
-  originalData?: T[] | undefined;
+  originalData?: Array<T> | undefined;
   onChange?: (value: string) => void;
-  isSorting?: boolean;
+  styles?: SearchBarStyleProps;
 }
 
 function SearchBar<T>(props: SearchBarProps<T>) {
-  const { buttonLabel = 'Search', placeholderText = 'Search', onChange, search, originalData } = props;
+  const {
+    buttonLabel = DEFAULT_CONSTANTS.SEARCH,
+    placeholderText = DEFAULT_CONSTANTS.SEARCH,
+    onChange,
+    search,
+    originalData,
+    styles
+  } = props;
 
   const handleChange = (e: { target: { value: string } }) => {
-    handleSearch(e.target.value);
+    handleSearch({ value: e.target.value });
     onChange && onChange(e.target.value);
   };
 
-  const handleSearch = (value: string) => {
-    if (value.startsWith('/')) {
-      const explodeWithSpace = value?.split(' ');
+  const handleSearch = ({ value }: { value: string }) => {
+    if (value.startsWith(SEARCH_SEPARATORS.SLASH)) {
+      const explodeWithSpace: Array<string> = value?.split(SEARCH_SEPARATORS.SPACE);
 
       if (Array.isArray(explodeWithSpace) && explodeWithSpace.length > 1) {
         explodeWithSpace.map((_item) => {
-          const explodeWithTwoPoint = _item.split(':');
+          const explodeWithTwoPoint: Array<string> = _item.split(SEARCH_SEPARATORS.TWO_POINT_UP);
 
           if (Array.isArray(explodeWithTwoPoint) && explodeWithTwoPoint.length > 1) {
             search?.setItems(
               originalData?.filter((__item) => {
-                const itemKey = explodeWithTwoPoint[0].substring(1);
-                const itemValue = explodeWithTwoPoint[1];
+                const itemKey: string = explodeWithTwoPoint[0].substring(1);
+                const itemValue: string = explodeWithTwoPoint[1];
 
-                return __item[itemKey]?.toLowerCase() === itemValue.toLowerCase();
+                return __item[itemKey]?.toString().toLowerCase() === itemValue.toString().toLowerCase();
               })
             );
           }
 
-          if (!_item.includes(':')) {
+          if (!_item.includes(SEARCH_SEPARATORS.TWO_POINT_UP)) {
             search?.setItems((prev) =>
               prev?.filter((__item: T) => JSON.stringify(__item).toLowerCase().includes(_item.toLowerCase()))
             );
@@ -48,27 +63,20 @@ function SearchBar<T>(props: SearchBarProps<T>) {
     }
 
     search?.setItems(
-      originalData?.filter((item) => JSON.stringify(item).toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+      originalData?.filter((__item) => JSON.stringify(__item).toLocaleLowerCase().includes(value.toLocaleLowerCase()))
     );
   };
 
   return (
-    <div className={'flex justify-center'}>
-      <div className={'mb-3 w-full'}>
-        <div className={'input-group relative flex flex-row items-stretch w-full mb-4'}>
-          <input
-            type="search"
-            onChange={handleChange}
-            className={
-              'flex flex-1 form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-slate-800 bg-clip-padding border border-solid border-slate-800 rounded transition ease-in-out m-0 focus:border-blue-600 focus:outline-none focus:text-slate-100'
-            }
-            placeholder={placeholderText}
-            aria-label={buttonLabel}
-            aria-describedby="button-addon3"
-          />
-        </div>
-      </div>
-    </div>
+    <SearchBarContainer style={{ ...styles?.containerStyle }}>
+      <SearchBarTextInput
+        type="search"
+        onChange={handleChange}
+        placeholder={placeholderText}
+        aria-label={buttonLabel}
+        style={{ ...styles?.searchInputStyle }}
+      />
+    </SearchBarContainer>
   );
 }
 
