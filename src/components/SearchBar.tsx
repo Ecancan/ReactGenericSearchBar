@@ -1,6 +1,7 @@
 import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
 import { DEFAULT_CONSTANTS } from '../constants/constants';
 import { SEARCH_SEPARATORS } from '../constants/seperatorConstants';
+import { slugConverter } from '../utils/arrayUtils';
 import { SearchBarContainer, SearchBarTextInput } from './searchBarStyle';
 
 export interface SearchBarStyleProps {
@@ -43,10 +44,10 @@ function SearchBar<T>(props: SearchBarProps<T>) {
           if (Array.isArray(explodeWithTwoPoint) && explodeWithTwoPoint.length > 1) {
             search?.setItems(
               originalData?.filter((__item) => {
-                const itemKey: string = explodeWithTwoPoint[0].substring(1);
-                const itemValue: string = explodeWithTwoPoint[1];
+                const itemKey: string = explodeWithTwoPoint[0].trim().substring(1);
+                const itemValue: string = explodeWithTwoPoint[1]?.trim();
 
-                return __item[itemKey]?.toString().toLowerCase() === itemValue.toString().toLowerCase();
+                return slugConverter({ value: __item[itemKey] }) === itemValue.toString().toLowerCase();
               })
             );
           }
