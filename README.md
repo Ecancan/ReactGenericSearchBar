@@ -8,4 +8,17 @@ This module is generic search bar component. Main purpose of this module is filt
 
 ## Installation
 
+##### With Yarn
+
+```
+yarn add @ecancan/react-generic-search-bar
+```
+
+##### With Npm
+
+```
+npm install @ecancan/react-generic-search-bar
+```
+## Usage
+
 > Coming Soon
