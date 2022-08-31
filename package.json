@@ -1,9 +1,10 @@
 {
   "name": "@ecancan/react-generic-search-bar",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "Generic searchbar component for reactjs",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "author": "Ahmet CAN",
   "license": "MIT",
   "files": [
@@ -52,7 +53,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^2.78.1",
-    "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "4.7.4"

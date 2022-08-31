@@ -1,22 +1,9 @@
-import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
-import { DEFAULT_CONSTANTS } from '../constants/constants';
-import { SEARCH_SEPARATORS } from '../constants/seperatorConstants';
-import { slugConverter } from '../utils/arrayUtils';
+import React from 'react';
+import { DEFAULT_CONSTANTS } from '../../constants/constants';
+import { SEARCH_SEPARATORS } from '../../constants/seperatorConstants';
+import { slugConverter } from '../../utils/arrayUtils';
+import { SearchBarProps } from './SearchBar.types';
 import { SearchBarContainer, SearchBarTextInput } from './searchBarStyle';
-
-export interface SearchBarStyleProps {
-  containerStyle?: CSSProperties;
-  searchInputStyle?: CSSProperties;
-}
-
-export interface SearchBarProps<T> {
-  search?: { items: Array<T> | undefined; setItems: Dispatch<SetStateAction<Array<T> | undefined>> };
-  buttonLabel?: string;
-  placeholderText?: string;
-  originalData?: Array<T> | undefined;
-  onChange?: (value: string) => void;
-  styles?: SearchBarStyleProps;
-}
 
 function SearchBar<T>(props: SearchBarProps<T>) {
   const {
@@ -81,4 +68,4 @@ function SearchBar<T>(props: SearchBarProps<T>) {
   );
 }
 
-export { SearchBar };
+export default SearchBar;

@@ -21,10 +21,9 @@ export const flatten = (obj: any) => {
   return root;
 };
 
-export const slugConverter = ({ value }: { value: string | undefined }) => (
-    value &&
-    value
-      .toLowerCase()
-      .replace(/ /g, '-')
-      .replace(/[^\w-]+/g, '')
-  );
+export const slugConverter = ({ value }: { value: string | undefined }) =>
+  value &&
+  value
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[^\w-]+/g, '');
