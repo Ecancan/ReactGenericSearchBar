@@ -4,7 +4,8 @@ This module is generic search bar component. Main purpose of this module is filt
 
 ## Demo 
 
-> Coming Soon
+![Demo1](https://s1.gifyu.com/images/Screen-Recording-2022-08-29-at-01.07.21.gif)
+![Demo1](https://s1.gifyu.com/images/Screen-Recording-2022-08-29-at-01.06.49.gif)
 
 ## Installation
 
