@@ -39,7 +39,7 @@ All props are optional. Actually no need any props for basic usage.
 ### Advanced
 
 ```js
-import {RNAppointmentCalendar} from 'react-native-appointment-calendar';
+import { SearchBar } from '@ecancan/react-generic-search-bar';
 
 <SearchBar<ItemsType>
   search={{ items: characters, setItems: setCharacters }}
