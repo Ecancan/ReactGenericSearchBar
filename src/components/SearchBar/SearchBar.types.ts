@@ -1,4 +1,4 @@
-import { CSSProperties, Dispatch, SetStateAction } from 'react';
+import { CSSProperties } from 'react';
 
 export interface SearchBarStyleProps {
   containerStyle?: CSSProperties;
@@ -6,10 +6,10 @@ export interface SearchBarStyleProps {
 }
 
 export interface SearchBarProps<T> {
-  search?: { items: Array<T> | undefined; setItems: Dispatch<SetStateAction<Array<T> | undefined>> };
   buttonLabel?: string;
   placeholderText?: string;
-  originalData?: Array<T> | undefined;
+  items?: Array<T> | undefined;
   onChange?: (value: string) => void;
+  onResult?: (items: Array<T> | undefined) => void;
   styles?: SearchBarStyleProps;
 }

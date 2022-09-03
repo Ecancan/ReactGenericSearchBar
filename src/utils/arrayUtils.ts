@@ -24,6 +24,7 @@ export const flatten = (obj: any) => {
 export const slugConverter = ({ value }: { value: string | undefined }) =>
   value &&
   value
+    .toString()
     .toLowerCase()
     .replace(/ /g, '-')
     .replace(/[^\w-]+/g, '');

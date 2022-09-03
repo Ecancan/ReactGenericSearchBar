@@ -28,8 +28,8 @@ npm install @ecancan/react-generic-search-bar
 import { SearchBar } from '@ecancan/react-generic-search-bar';
 
 <SearchBar<ItemsType>
-  search={{ items: characters, setItems: setCharacters }}
-  originalData={characters}
+  items={items}
+  onResult={(_items) => console.log(_items)}
   placeholderText={'Search and filter. Eg. /gender:male /species:alien ...'}
   />
 ```
@@ -42,8 +42,8 @@ All props are optional. Actually no need any props for basic usage.
 import { SearchBar } from '@ecancan/react-generic-search-bar';
 
 <SearchBar<ItemsType>
-  search={{ items: characters, setItems: setCharacters }}
-  originalData={characters}
+  items={items} 
+  onResult={(_items) => console.log(_items)}
   onChange={(value) => console.log(value)}
   buttonLabel={'Search...'}
   styles={{containerStyle: styleValue, searchInputStyle: styleValue}}
@@ -53,14 +53,14 @@ import { SearchBar } from '@ecancan/react-generic-search-bar';
 
 ## All Props
 
-| Prop Name                 | Necessity | Value Example                               | Value Type                                                     |
-|---------------------------|-----------|---------------------------------------------|----------------------------------------------------------------|
-| `search`                  | optional  | [Advanced](#advanced)                       | `items: T[]; setItems: Dispatch<SetStateAction<T[]>>` |
-| `buttonLabel`             | optional          | [Advanced](#advanced)                                    | `string`                                                       |
-| `placeholderText`         | optional          | [Advanced](#advanced)                                    | `string`                                                       |
-| `originalData`            | optional          | [Advanced](#advanced)                                    | `array`                                                        |
-| `onChange`                | optional          | [Advanced](#advanced)                        | `((value: string) => void)`                                    |
-| `styles`                  | optional          | [Advanced](#advanced)                        | `SearchBarStyleProps`                                          |
+| Prop Name         | Necessity | Value Example                               | Value Type                  |
+|-------------------|-----------|---------------------------------------------|-----------------------------|
+| `items`           | optional          | [Advanced](#advanced)                                    | `array`                     |
+| `buttonLabel`     | optional          | [Advanced](#advanced)                                    | `string`                    |
+| `placeholderText` | optional          | [Advanced](#advanced)                                    | `string`                    |
+| `styles`          | optional          | [Advanced](#advanced)                        | `SearchBarStyleProps`       |
+| `onChange`        | optional          | [Advanced](#advanced)                        | `((value: string) => void)` |
+| `onResult`        | optional  | [Advanced](#advanced)                       | `function`                  |
 
 # Next Features
 - [ ] Query string builder

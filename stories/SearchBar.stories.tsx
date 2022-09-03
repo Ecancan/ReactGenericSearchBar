@@ -38,9 +38,14 @@ export default {
 const Template: ComponentStory<typeof SearchBar> = (args) => {
   const [items, setItems] = useState<Character[] | undefined>(characters);
 
+  const handleOnSearchResult = (items) => {
+    setItems(items);
+    console.log(items);
+  };
+
   return (
     <>
-      <SearchBar<Character> {...args} search={{ items, setItems }} originalData={characters}/>
+      <SearchBar<Character> {...args} items={items} onResult={handleOnSearchResult}/>
       <div style={{
         display: 'flex',
         flexDirection: 'row',
