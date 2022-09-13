@@ -45,7 +45,7 @@ const Template: ComponentStory<typeof SearchBar> = (args) => {
 
   return (
     <>
-      <SearchBar<Character> {...args} items={items} onResult={handleOnSearchResult}/>
+      <SearchBar<Character> {...args} items={characters} onResult={handleOnSearchResult}/>
       <div style={{
         display: 'flex',
         flexDirection: 'row',

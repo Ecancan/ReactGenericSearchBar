@@ -22,40 +22,43 @@ function SearchBar<T>(props: SearchBarProps<T>) {
     onChange && onChange(e.target.value);
   };
 
-  const handleSearch = useCallback(({ value }: { value: string }) => {
-    if (value.startsWith(SEARCH_SEPARATORS.SLASH)) {
-      const explodeWithSpace: Array<string> = value?.split(SEARCH_SEPARATORS.SPACE);
+  const handleSearch = useCallback(
+    ({ value }: { value: string }) => {
+      if (value.startsWith(SEARCH_SEPARATORS.SLASH)) {
+        const explodeWithSpace: Array<string> = value?.split(SEARCH_SEPARATORS.SPACE);
 
-      if (Array.isArray(explodeWithSpace) && explodeWithSpace.length > 1) {
-        explodeWithSpace.map((_item) => {
-          const explodeWithTwoPoint: Array<string> = _item.split(SEARCH_SEPARATORS.TWO_POINT_UP);
+        if (Array.isArray(explodeWithSpace) && explodeWithSpace.length > 1) {
+          explodeWithSpace.map((_item) => {
+            const explodeWithTwoPoint: Array<string> = _item.split(SEARCH_SEPARATORS.TWO_POINT_UP);
 
-          if (Array.isArray(explodeWithTwoPoint) && explodeWithTwoPoint.length > 1) {
-            setSearchItems(
-              items?.filter((__item) => {
-                const itemKey: string = explodeWithTwoPoint[0].trim().substring(1);
-                const itemValue: string = explodeWithTwoPoint[1]?.trim();
+            if (Array.isArray(explodeWithTwoPoint) && explodeWithTwoPoint.length > 1) {
+              setSearchItems(
+                items?.filter((__item) => {
+                  const itemKey: string = explodeWithTwoPoint[0].trim().substring(1);
+                  const itemValue: string = explodeWithTwoPoint[1]?.trim();
 
-                return slugConverter({ value: __item[itemKey] }) === itemValue.toString().toLowerCase();
-              })
-            );
-          }
+                  return slugConverter({ value: __item[itemKey] }) === itemValue.toString().toLowerCase();
+                })
+              );
+            }
 
-          if (!_item.includes(SEARCH_SEPARATORS.TWO_POINT_UP)) {
-            setSearchItems((prev) =>
-              prev?.filter((__item: T) => JSON.stringify(__item).toLowerCase().includes(_item.toLowerCase()))
-            );
-          }
-        });
+            if (!_item.includes(SEARCH_SEPARATORS.TWO_POINT_UP)) {
+              setSearchItems((prev) =>
+                prev?.filter((__item: T) => JSON.stringify(__item).toLowerCase().includes(_item.toLowerCase()))
+              );
+            }
+          });
+        }
+
+        return;
       }
 
-      return;
-    }
-
-    setSearchItems(
-      items?.filter((__item) => JSON.stringify(__item).toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-    );
-  }, []);
+      setSearchItems(
+        items?.filter((__item) => JSON.stringify(__item).toLocaleLowerCase().includes(value.toLocaleLowerCase()))
+      );
+    },
+    [items]
+  );
 
   useEffect(() => {
     onResult && searchItems && onResult(searchItems);
