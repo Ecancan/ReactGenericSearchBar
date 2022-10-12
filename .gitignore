@@ -3,7 +3,5 @@ node_modules
 dist
 coverage
 ./coverage
-__tests__/__snapshots__
-./__tests__/__snapshots__
 yarn.lock
 ./yarn.lock
