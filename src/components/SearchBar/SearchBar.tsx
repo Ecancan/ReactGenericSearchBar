@@ -24,6 +24,7 @@ function SearchBar<T>(props: SearchBarProps<T>) {
 
   const handleSearch = useCallback(
     ({ value }: { value: string }) => {
+      setSearchItems(items);
       if (value.startsWith(SEARCH_SEPARATORS.SLASH)) {
         const explodeWithSpace: Array<string> = value?.split(SEARCH_SEPARATORS.SPACE);
 
@@ -53,9 +54,7 @@ function SearchBar<T>(props: SearchBarProps<T>) {
         return;
       }
 
-      setSearchItems(
-        items?.filter((__item) => JSON.stringify(__item).toLocaleLowerCase().includes(value.toLocaleLowerCase()))
-      );
+      setSearchItems(items);
     },
     [items]
   );
