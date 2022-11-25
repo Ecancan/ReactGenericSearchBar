@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { DEFAULT_CONSTANTS } from '../../constants/constants';
 import { SEARCH_SEPARATORS } from '../../constants/seperatorConstants';
 import { slugConverter } from '../../utils/arrayUtils';
@@ -20,6 +20,7 @@ function SearchBar<T>(props: SearchBarProps<T>) {
   const handleChange = (e: { target: { value: string } }) => {
     handleSearch({ value: e.target.value });
     onChange && onChange(e.target.value);
+    onResult && searchItems && onResult(searchItems, e.target.value);
   };
 
   const handleSearch = useCallback(
@@ -59,10 +60,6 @@ function SearchBar<T>(props: SearchBarProps<T>) {
     },
     [items]
   );
-
-  useEffect(() => {
-    onResult && searchItems && onResult(searchItems);
-  }, [searchItems]);
 
   return (
     <SearchBarContainer style={{ ...styles?.containerStyle }}>

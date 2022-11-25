@@ -38,9 +38,10 @@ export default {
 const Template: ComponentStory<typeof SearchBar> = (args) => {
   const [items, setItems] = useState<Character[] | undefined>(characters);
 
-  const handleOnSearchResult = (items) => {
+  const handleOnSearchResult = (items, value) => {
     setItems(items);
     console.log(items);
+    console.log(value);
   };
 
   return (
