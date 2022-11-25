@@ -10,6 +10,6 @@ export interface SearchBarProps<T> {
   placeholderText?: string;
   items?: Array<T> | undefined;
   onChange?: (value: string) => void;
-  onResult?: (items: Array<T> | undefined, value: string) => void;
+  onResult?: (items: Array<T> | undefined, value?: string) => void;
   styles?: SearchBarStyleProps;
 }
